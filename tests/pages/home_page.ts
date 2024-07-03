@@ -18,7 +18,7 @@ export class HomePage {
         this.logo = page.getByRole('navigation').getByRole('link', { name: 'Aquabot' });
         this.homeButton = page.getByRole('link', { name: 'Home' });
         this.buttonsLinksButton = page.getByRole('link', { name: 'Buttons & Links' });
-        this.formButton = page.getByRole('link', { name: 'Form' });
+        this.formButton = page.getByRole('link', { name: 'Forms' });
         this.iframeButton = page.getByRole('link', { name: 'iFrame' });
         this.tablesButton = page.getByRole('button', { name: 'Tables' });
         this.complexElementsButton = page.getByRole('button', { name: 'Complex Elements' });

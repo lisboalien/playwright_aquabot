@@ -2,6 +2,8 @@ import { type Locator, type Page, expect } from '@playwright/test';
 
 export class FormsPage {
     readonly page: Page;
+    readonly pageTitleLocator: Locator;
+    readonly contactForm: Locator;
     readonly nameInput: Locator;
     readonly emailInput: Locator;
     readonly phoneInput: Locator;
@@ -13,9 +15,12 @@ export class FormsPage {
     readonly successMessageCheckbox: Locator;
     readonly submitButton: Locator;
     readonly clearButton: Locator; 
+    readonly pageTitle: RegExp = /Demo Contact Form/;
    
     constructor(page: Page) {
         this.page = page;
+        this.pageTitleLocator = page.locator('h2');
+        this.contactForm = page.locator('#contactForm');
         this.nameInput = page.getByLabel('Name');
         this.emailInput = page.getByLabel('Email');
         this.phoneInput = page.getByLabel('Phone');
@@ -28,6 +33,11 @@ export class FormsPage {
         this.submitButton = page.getByRole('button', { name: 'Submit' });
         this.clearButton = page.getByRole('button', { name: 'Clear' });
     }
+
+    async assertFormsPage() {
+        await expect(this.pageTitleLocator).toHaveText(this.pageTitle);
+        await expect(this.contactForm).toBeVisible();
+    };
 
     async fillForm(name: string, email: string, phone: string, homePhone: boolean, message: string, success: boolean) {
         await this.nameInput.fill(name);
