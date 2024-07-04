@@ -63,4 +63,24 @@ test.describe("HomePage Tests", () => {
 
     await iframePage.assertCityName("Las Vegas");
   });
+
+  [
+    "homeButton",
+    "buttonsLinksButton",
+    "formButton",
+    "iframeButton",
+    "tablesButton",
+    "complexElementsButton",
+  ].forEach((button) => {
+    test(`${tcsCounter()} - Hovering ${button} Button`, async ({ page }) => {
+      await page.mouse.wheel(0, 900);
+      await homePage.hoverOverTopBarButton(homePage[button]);
+
+      if (["tablesButton", "complexElementsButton"].includes(button)) {
+        await expect(
+          homePage[button].locator("+ .dropdown-menu")
+        ).toBeVisible();
+      }
+    });
+  });
 });
